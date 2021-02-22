@@ -1,0 +1,19 @@
+<div class="px-4 mt-1 rounded bg-light text-center mr-3">
+    <h4 class="py-3 text-center text-truncate text-dark">Your Cart</h4>
+    <div class="d-flex justify-content-between border-bottom my-2 row p-1">
+        <div class="col-sm-3 offset-sm-3 text-left text-color-grey">Item</div>
+        <div class="col-sm-3 text-left text-color-grey">Quantity</div>
+        <div class="col-sm-3 text-right text-color-grey">Price</div>
+    </div>
+    <div *ngIf="cartItems">
+        <div class="row p-1 border-bottom" *ngFor="let item of cartItems | async; let i = index">
+            <div class="col-sm-3 text-left">{{ i + 1 }}.</div>
+            <div class="col-sm-3 text-left">{{ item.name }}</div>
+            <div class="col-sm-3 text-center">{{ item.quantity }}</div>
+            <div class="col-sm-3 text-right">{{ (item.quantity * item.price) | currency: 'USD': 'symbol': '1.0' }}</div>
+        </div>
+        <div class="row py-1" *ngIf="getTotalPrice() > 0">
+            <div class="col-sm-3 offset-sm-9 text-right">{{ getTotalPrice() | currency: 'USD': 'symbol': '1.0' }}</div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,45 @@
+<div class="container" *ngIf="products">
+  <div class="row">
+    <div class="col-sm-4" *ngFor="let product of products | async">
+      <div class="p-2 my-1 rounded bg-light text-center">
+        <img
+          class="py-1"
+          src="{{ product?.image }}"
+          alt="{{ product?.name }}"
+          width="150px"
+          height="150px"
+        />
+        <p class="text-dark text-center pt-1 mb-0 text-truncate">
+          {{ product?.name }}
+        </p>
+        <h6 class="pb-1 text-center text-truncate text-dark">
+           {{ product?.price | currency: 'USD': 'symbol': '1.0' }}
+        </h6>
+        <button
+          *ngIf="!(getQuantity(product) > 0)"
+          class="btn w-50 btn-outline-success cursor-pointer"
+          (click)="onAddToCart(product)"
+        >
+          Add To Cart
+        </button>
+        <div
+          class="d-flex justify-content-center"
+          *ngIf="getQuantity(product) > 0"
+        >
+          <button class="round-button mr-3" (click)="onDecrement(product)">
+            <span>-</span>
+          </button>
+          <input
+            type="text"
+            class="text-center w-15"
+            disabled
+            value="{{ getQuantity(product) }}"
+          />
+          <button class="round-button ml-3" (click)="onIncrement(product)">
+            <span>+</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
